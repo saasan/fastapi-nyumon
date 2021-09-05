@@ -14,3 +14,7 @@
        docker-compose exec demo-app python -m api.migrate_db
 
 1. [Swagger UI](http://localhost:8000/docs) を開く
+
+1. ユニットテスト
+
+       docker-compose exec demo-app pytest

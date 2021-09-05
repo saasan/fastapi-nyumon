@@ -1,14 +1,9 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim
 
-RUN apk add --no-cache tzdata \
-    && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
-    && apk del tzdata \
-    && echo 'Asia/Tokyo' > /etc/timezone
-
-# build-baseはsqlalchemyに必要
-RUN apk add --no-cache build-base
-
-COPY requirements.txt /
-RUN pip install --no-cache-dir -r /requirements.txt
+RUN pip install poetry \
+    && poetry config virtualenvs.create false
 
 WORKDIR /app
+
+COPY pyproject.toml* poetry.lock* ./
+RUN if [ -f pyproject.toml ]; then poetry install --no-root; fi

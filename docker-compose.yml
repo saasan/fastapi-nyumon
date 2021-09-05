@@ -4,6 +4,7 @@ services:
         build: .
         command: /start-reload.sh
         environment:
+            TZ: 'Asia/Tokyo'
             PYTHONDONTWRITEBYTECODE: 1
         volumes:
             - .:/app
@@ -13,9 +14,9 @@ services:
     db:
         image: mysql:8.0
         environment:
+            TZ: 'Asia/Tokyo'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
             MYSQL_DATABASE: 'demo'
-            TZ: 'Asia/Tokyo'
         volumes:
             - mysql_data:/var/lib/mysql
         command: --default-authentication-plugin=mysql_native_password
