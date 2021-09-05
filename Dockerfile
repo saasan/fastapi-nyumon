@@ -5,10 +5,8 @@ RUN apk add --no-cache tzdata \
     && apk del tzdata \
     && echo 'Asia/Tokyo' > /etc/timezone
 
-# build-base, gccはsqlalchemyに必要
-RUN apk add --no-cache \
-    build-base \
-    gcc
+# build-baseはsqlalchemyに必要
+RUN apk add --no-cache build-base
 
 COPY requirements.txt /
 RUN pip install --no-cache-dir -r /requirements.txt
